@@ -11,7 +11,8 @@ import GameShow from "./container/GameShow";
 import { Route, Switch, Link } from "react-router-dom";
 
 class App extends React.Component {
-  state = { allGames: [], allUsers: [] };
+
+  state = { allGames: [], allUsers: [], user: null }
 
   componentDidMount() {
     fetch(
@@ -25,17 +26,20 @@ class App extends React.Component {
       .then(data => this.setState({ allUsers: data }));
   }
 
+
+
   render() {
     return (
       <div>
         <NavBar />
         <Switch>
+<<<<<<< HEAD
           <Route
             path="/home"
             render={() => {
               return (
                 <div>
-                  <Home />
+                  <Home allUsers={this.state.allUsers} />
                 </div>
               );
             }}
@@ -91,6 +95,43 @@ class App extends React.Component {
               );
             }}
           />
+=======
+          <Route path="/home" render={() => {
+            return (
+              <div>
+                <Home allUsers={this.state.allUsers} />
+              </div>
+            )
+          }} />
+          <Route path="/meetup/new" render={() => {
+            return (
+              <div>
+                <Meetup />
+              </div>
+            )
+          }} />
+          <Route path="/meetups" render={() => {
+            return (
+              <div>
+                <Meetups />
+              </div>
+            )
+          }} />
+          <Route path="/games" render={() => {
+            return (
+              <div>
+                <Games allGames={this.state.allGames} />
+              </div>
+            )
+          }} />
+          <Route path="/login" render={() => {
+            return (
+              <div>
+                <Login />
+              </div>
+            )
+          }} />
+>>>>>>> nick-stano
         </Switch>
       </div>
     );
