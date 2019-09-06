@@ -11,13 +11,16 @@ import { Route, Switch, Link } from 'react-router-dom'
 
 class App extends React.Component {
 
-  state = { allGames: [] }
+  state = { allGames: [], allUsers: [] }
 
   componentDidMount() {
     fetch(`https://www.boardgameatlas.com/api/search?order_by=popularity&ascending=false&pretty=true&client_id=SB1VGnDv7M`).then(res => res.json())
       .then(data => this.setState({ allGames: data.games }))
-  }
 
+    fetch(`http://localhost:3000/users`)
+      .then(res => res.json())
+      .then(data => this.setState({ allUsers: data }))
+  }
 
   render() {
     return (
