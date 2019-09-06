@@ -27,7 +27,8 @@ export class Meetup extends Component {
           <DatePicker
             selected={this.state.date}
             onChange={this.handleDateChange}
-            // onSelect={this.props.handleSelect}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
           />
 
           <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
