@@ -11,7 +11,7 @@ import { Route, Switch, Link } from 'react-router-dom'
 
 class App extends React.Component {
 
-  state = { allGames: [], allUsers: [] }
+  state = { allGames: [], allUsers: [], user: null }
 
   componentDidMount() {
     fetch(`https://www.boardgameatlas.com/api/search?order_by=popularity&ascending=false&pretty=true&client_id=SB1VGnDv7M`).then(res => res.json())
@@ -22,6 +22,8 @@ class App extends React.Component {
       .then(data => this.setState({ allUsers: data }))
   }
 
+
+
   render() {
     return (
       <div>
@@ -30,7 +32,7 @@ class App extends React.Component {
           <Route path="/home" render={() => {
             return (
               <div>
-                <Home />
+                <Home allUsers={this.state.allUsers} />
               </div>
             )
           }} />
