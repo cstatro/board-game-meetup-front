@@ -6,7 +6,7 @@ export default function GameCard(props) {
 
   return (
     <React.Fragment>
-      <Link to={{ pathname: `games/`, game: { ...props.game } }}>
+      <Link to={{ pathname: `games/${name}`, game: { ...props.game } }}>
         <div className="game-row">
           <div className="card">
             <img
@@ -16,7 +16,6 @@ export default function GameCard(props) {
             />
             <div className="card-body">
               <h5 className="card-title">{name}</h5>
-              <p className="card-text">""</p>
             </div>
             <ul className="list-group list-group-flush">
               <li className="list-group-item">

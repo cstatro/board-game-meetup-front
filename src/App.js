@@ -62,10 +62,11 @@ class App extends React.Component {
           />
           <Route
             path={`/games/:name`}
-            render={() => {
+            render={props => {
+              const { game } = props.history.location;
               return (
                 <div>
-                  <GameShow />
+                  <GameShow {...game} />
                 </div>
               );
             }}
