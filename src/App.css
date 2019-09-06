@@ -1,18 +1,13 @@
 .card img {
-    width: 180px;
-    height: auto;
-}
-
-.gamesContainer {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center; */
+  width: 180px;
+  height: auto;
 }
 
 .card {
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
 }
-
+.card:hover {
+  background: rgba(240, 240, 213, 0.678);
+  cursor: pointer;
+}

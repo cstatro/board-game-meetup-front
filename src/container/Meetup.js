@@ -14,11 +14,11 @@ export class Meetup extends Component {
       <div>
         <samp>New Meetup</samp>
         <form>
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleFormControlInput1">Host</label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="exampleFormControlInput1"
               placeholder="name@example.com"
             />
@@ -31,26 +31,26 @@ export class Meetup extends Component {
             dateFormat="MMMM d, yyyy h:mm aa"
           />
 
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <select className="custom-select mr-sm-2" id="inlineFormCustomSelect">
             <option selected>Select Board Game</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleFormControlInput1">Estimated Game Length</label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="exampleFormControlInput1"
               placeholder="120 minutes"
             />
           </div>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleFormControlSelect1">Players Count</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select className="form-control" id="exampleFormControlSelect1">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -64,26 +64,26 @@ export class Meetup extends Component {
             </select>
           </div>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="formGroupExampleInput2">Add Members</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="formGroupExampleInput2"
               placeholder="Another input"
             />
           </div>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleFormControlTextarea1">Notes</label>
             <textarea
-              class="form-control"
+              className="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary mb-2">
+          <button type="submit" className="btn btn-primary mb-2">
             Create New Meetup
           </button>
         </form>
