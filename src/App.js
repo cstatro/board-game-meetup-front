@@ -9,10 +9,10 @@ import Meetups from "./container/Meetups";
 import Login from "./container/Login";
 import GameShow from "./container/GameShow";
 import { Route, Switch, Link } from "react-router-dom";
+import { all } from "q";
 
 class App extends React.Component {
-
-  state = { allGames: [], allUsers: [], user: null }
+  state = { allGames: [], allUsers: [], user: { name: "colin" } };
 
   componentDidMount() {
     fetch(
@@ -23,10 +23,8 @@ class App extends React.Component {
 
     fetch(`http://localhost:3000/users`)
       .then(res => res.json())
-      .then(data => this.setState({ allUsers: data }));
+      .then(allUsers => this.setState({ allUsers }));
   }
-
-
 
   render() {
     return (
