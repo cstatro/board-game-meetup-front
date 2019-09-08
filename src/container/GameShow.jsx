@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import FirstAddButton from "../components/UI/FirstAddButton";
 import GameShowOptions from "../components/UI/GameShowOptions";
+import { postConfig } from "../api/config";
+import { postUserGame, GAMES } from "../api/postCalls";
 
 class GameShow extends Component {
-  state = { owners: [], inDataBase: null };
+  state = { owners: [], inDataBase: null, createOwnedCopy: null };
 
   componentDidMount() {
     const { name } = this.props;
@@ -12,11 +14,23 @@ class GameShow extends Component {
       .then(data => this.setState({ owners: data.users, inDataBase: true }))
       .catch(e => this.setState({ inDataBase: false }));
   }
+  componentDidUpdate() {
+    const { createOwnedCopy } = this.state;
+    const { id: user_id } = this.props.user;
+    if (createOwnedCopy) {
+      const obj = { game_id: createOwnedCopy, user_id };
+      const config = postConfig(obj);
+      postUserGame(config);
+      const owners = [...this.state.owners, this.props.user];
+      this.setState({ createOwnedCopy: null, owners, inDataBase: true });
+    }
+  }
 
-  handleFirstGameAdd = () => {
-    //send server request with object and user Id
-    // with the json response create a join record between the game and the current user
-    // setstate to include user
+  handleFirstGameAdd = obj => {
+    const config = postConfig(obj);
+    fetch(GAMES, config)
+      .then(r => r.json())
+      .then(json => this.setState({ createOwnedCopy: json.id }));
   };
 
   render() {
@@ -29,7 +43,7 @@ class GameShow extends Component {
       max_playtime,
       min_playtime
     } = this.props;
-    const { inDataBase } = this.state;
+    const { inDataBase, owners } = this.state;
     const newGame = {
       name,
       image: image_url,
@@ -40,6 +54,7 @@ class GameShow extends Component {
     };
 
     return (
+      //clean this up if time
       <div className="game-show">
         <h1>{name}</h1>
         <div className="display-info">
@@ -47,9 +62,13 @@ class GameShow extends Component {
         </div>
         <div className="available-actions">
           {inDataBase ? (
-            <GameShowOptions user_id={user.id} />
+            <GameShowOptions owners={owners} user={user} />
           ) : (
-            <FirstAddButton newGame={newGame} user_id={user.id} />
+            <FirstAddButton
+              handleClick={this.handleFirstGameAdd}
+              newGame={newGame}
+              user_id={user.id}
+            />
           )}
         </div>
       </div>
