@@ -39,14 +39,6 @@ class GameShow extends Component {
       max_playtime
     };
 
-    // t.string "name"
-    // t.integer "max_player"
-    // t.integer "min_player"
-    // t.integer "max_playtime"
-    // t.integer "min_playtime"
-    // t.string "image"
-    // t.string "thumbnail"
-
     return (
       <div className="game-show">
         <h1>{name}</h1>
