@@ -13,10 +13,31 @@ class GameShow extends Component {
       .catch(e => this.setState({ inDataBase: false }));
   }
 
+  handleFirstGameAdd = () => {
+    //send server request with object and user Id
+    // with the json response create a join record between the game and the current user
+    // setstate to include user
+  };
+
   render() {
-    const { name, image_url, user, max_players, min_players } = this.props;
+    const {
+      name,
+      image_url,
+      user,
+      max_players,
+      min_players,
+      max_playtime,
+      min_playtime
+    } = this.props;
     const { inDataBase } = this.state;
-    const newGame = { name, image_url, max_players, min_players };
+    const newGame = {
+      name,
+      image: image_url,
+      max_players,
+      min_players,
+      min_playtime,
+      max_playtime
+    };
 
     // t.string "name"
     // t.integer "max_player"
