@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import NavBar from "./container/NavBar";
 import Games from "./container/Games";
@@ -8,8 +7,7 @@ import Meetup from "./container/Meetup";
 import Meetups from "./container/Meetups";
 import Login from "./container/Login";
 import GameShow from "./container/GameShow";
-import { Route, Switch, Link } from "react-router-dom";
-import { all } from "q";
+import { Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
   state = { allGames: [], allUsers: [], user: { name: "colin" } };
