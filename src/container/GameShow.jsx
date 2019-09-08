@@ -14,8 +14,17 @@ class GameShow extends Component {
   }
 
   render() {
-    const { name, image_url } = this.props;
+    const { name, image_url, user, max_players, min_players } = this.props;
     const { inDataBase } = this.state;
+    const newGame = { name, image_url, max_players, min_players };
+
+    // t.string "name"
+    // t.integer "max_player"
+    // t.integer "min_player"
+    // t.integer "max_playtime"
+    // t.integer "min_playtime"
+    // t.string "image"
+    // t.string "thumbnail"
 
     return (
       <div className="game-show">
@@ -24,7 +33,11 @@ class GameShow extends Component {
           <img src={image_url} alt={name} />
         </div>
         <div className="available-actions">
-          {inDataBase ? <GameShowOptions /> : <FirstAddButton />}
+          {inDataBase ? (
+            <GameShowOptions user_id={user.id} />
+          ) : (
+            <FirstAddButton newGame={newGame} user_id={user.id} />
+          )}
         </div>
       </div>
     );

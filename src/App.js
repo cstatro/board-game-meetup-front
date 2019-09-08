@@ -10,7 +10,7 @@ import GameShow from "./container/GameShow";
 import { Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
-  state = { allGames: [], allUsers: [], user: { name: "colin" } };
+  state = { allGames: [], allUsers: [], user: { name: "colin", id: 1 } };
 
   componentDidMount() {
     fetch(
@@ -25,6 +25,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { user } = this.state;
     return (
       <div>
         <NavBar />
@@ -65,7 +66,7 @@ class App extends React.Component {
               const { game } = props.history.location;
               return (
                 <div>
-                  <GameShow {...game} />
+                  <GameShow user={user} {...game} />
                 </div>
               );
             }}
