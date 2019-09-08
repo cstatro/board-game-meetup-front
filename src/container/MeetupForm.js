@@ -5,7 +5,7 @@ import { userFind } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 
 export class MeetupForm extends Component {
-  state = { date: null, games: [] };
+  state = { date: null, games: [], selectedGame: null };
 
   handleDateChange = date => {
     this.setState({ date });
@@ -23,15 +23,6 @@ export class MeetupForm extends Component {
       <div>
         <samp>New Meetup</samp>
         <form>
-          {/* <div className="form-group">
-            <label for="exampleFormControlInput1">Host</label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-            />
-          </div> */}
           <label for="exampleFormControlInput1">Select a Date</label>
           <DatePicker
             selected={this.state.date}
@@ -66,16 +57,6 @@ export class MeetupForm extends Component {
               <option>9</option>
               <option>10</option>
             </select>
-          </div>
-
-          <div className="form-group">
-            <label for="formGroupExampleInput2">Add Members</label>
-            <input
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput2"
-              placeholder="Another input"
-            />
           </div>
 
           <div className="form-group">
