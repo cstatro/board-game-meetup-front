@@ -3,11 +3,11 @@ import "./App.css";
 import NavBar from "./container/NavBar";
 import Games from "./container/Games";
 import Home from "./container/Home";
-import Meetup from "./container/Meetup";
 import Meetups from "./container/Meetups";
 import Login from "./container/Login";
 import GameShow from "./container/GameShow";
 import { Route, Switch } from "react-router-dom";
+import { MeetupForm } from "./container/MeetupForm";
 
 class App extends React.Component {
   state = { allGames: [], allUsers: [], user: { name: "colin", id: 1 } };
@@ -45,7 +45,7 @@ class App extends React.Component {
             render={() => {
               return (
                 <div>
-                  <Meetup />
+                  <MeetupForm user={user} />
                 </div>
               );
             }}

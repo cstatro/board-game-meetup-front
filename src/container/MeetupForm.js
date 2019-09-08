@@ -1,20 +1,29 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { userFind } from "../api/postCalls";
+import SelectGame from "../components/UI/SelectGame";
 
-export class Meetup extends Component {
-  state = { date: null };
+export class MeetupForm extends Component {
+  state = { date: null, games: [] };
 
   handleDateChange = date => {
     this.setState({ date });
   };
+  componentDidMount() {
+    const { user } = this.props;
+    fetch(userFind(user.id))
+      .then(r => r.json())
+      .then(user => this.setState({ games: user.games }));
+  }
 
   render() {
+    const { games } = this.state;
     return (
       <div>
         <samp>New Meetup</samp>
         <form>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label for="exampleFormControlInput1">Host</label>
             <input
               type="email"
@@ -22,7 +31,7 @@ export class Meetup extends Component {
               id="exampleFormControlInput1"
               placeholder="name@example.com"
             />
-          </div>
+          </div> */}
           <label for="exampleFormControlInput1">Select a Date</label>
           <DatePicker
             selected={this.state.date}
@@ -31,12 +40,7 @@ export class Meetup extends Component {
             dateFormat="MMMM d, yyyy h:mm aa"
           />
 
-          <select className="custom-select mr-sm-2" id="inlineFormCustomSelect">
-            <option selected>Select Board Game</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <SelectGame games={games} />
 
           <div className="form-group">
             <label for="exampleFormControlInput1">Estimated Game Length</label>
@@ -92,4 +96,4 @@ export class Meetup extends Component {
   }
 }
 
-export default Meetup;
+export default MeetupForm;
