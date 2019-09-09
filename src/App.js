@@ -44,7 +44,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <NavBar user={this.state.user} setUser={this.setUser} />
-        <Switch>
+        <Switch >
           <Route path="/home" render={() => {
             return (
               <div><Home user={this.state.user} /></div>

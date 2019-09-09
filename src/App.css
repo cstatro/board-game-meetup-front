@@ -19,7 +19,20 @@
 
 .owned-games {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(3, 16.6%);
+}
+
+.user-games {
   border: seagreen;
-  border-style: double;
+  border-style: solid;
+}
+
+.user-games:hover {
+  background: rgba(240, 240, 213, 0.678);
+  cursor: pointer;
+}
+
+.user-games img {
+  width: 60px;
+  height: auto;
 }

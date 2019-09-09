@@ -17,14 +17,16 @@ export class Home extends Component {
                 <h1>Welcome back {this.props.user.name}</h1>
                 <img src={this.props.user.profile_pic} alt={this.props.user.name} />
                 <p>{this.props.user.bio}</p>
-                {this.state.userGames.map(game =>
-                    <div className="owned-games">
-                        <p>Game Name: {game.name}</p>
-                        <p><img src={game.image} alt={game.name} />{" "}</p>
-                        <p>Players: {game.min_players} - {game.max_players}</p>
-                        <p>Playtime: {game.min_playtime} - {game.max_playtime} minutes</p>
-                    </div>
-                )}
+                <div className="owned-games" >
+                    {this.state.userGames.map((game, index) => (
+                        <div key={index} className="user-games">
+                            <p>{game.name}</p>
+                            <p><img src={game.image} alt={game.name} /></p>
+                            <p>Players: {game.min_players} - {game.max_players}</p>
+                            <p>Playtime: {game.min_playtime} - {game.max_playtime} minutes</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }

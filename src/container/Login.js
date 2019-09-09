@@ -23,7 +23,6 @@ export class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         localStorage.setItem('userId', data.user.id)
         this.props.setUser(data.user)
         this.props.history.push('/home')
@@ -40,8 +39,8 @@ export class Login extends Component {
         <samp>Have an account already? Login</samp>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label for="formGroupExampleInput2">Username</label>
-            <input type="text" class="form-control" name="name" value={this.state.name} placeholder="Username" onChange={this.handleChange} />
+            <label htmlFor="formGroupExampleInput2">Username</label>
+            <input type="text" className="form-control" name="name" value={this.state.name} placeholder="Username" onChange={this.handleChange} />
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
