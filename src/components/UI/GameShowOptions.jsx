@@ -15,7 +15,9 @@ const GameShowOptions = props => {
       ) : (
         <AddToCollection handleClick={console.log} />
       )}
-      <button className="btn btn-lg btn-dark">Some People Own this Game</button>
+      <button className="btn btn-lg btn-dark">
+        (Implement Me!) People Own this Game
+      </button>
     </React.Fragment>
   );
 };

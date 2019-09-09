@@ -77,7 +77,11 @@ class GameShow extends Component {
         </div>
         <div className="available-actions">
           {inDataBase ? (
-            <GameShowOptions owners={owners} user={user} />
+            <GameShowOptions
+              handleAddGame={this.handleAddGame}
+              owners={owners}
+              user={user}
+            />
           ) : (
             <FirstAddButton
               handleClick={this.handleFirstGameAdd}
