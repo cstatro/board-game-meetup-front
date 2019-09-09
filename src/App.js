@@ -8,11 +8,15 @@ import Meetup from "./container/Meetup";
 import Meetups from "./container/Meetups";
 import Login from "./container/Login";
 import GameShow from "./container/GameShow";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, withRouter } from "react-router-dom";
 
 class App extends React.Component {
 
   state = { allGames: [], allUsers: [], user: null }
+
+  setUser = userLogin => {
+    this.setState({ user: userLogin })
+  }
 
   componentDidMount() {
     fetch(
@@ -24,21 +28,33 @@ class App extends React.Component {
     fetch(`http://localhost:3000/users`)
       .then(res => res.json())
       .then(data => this.setState({ allUsers: data }));
+
+    const userId = localStorage.getItem('userId')
+    if (userId) {
+      fetch(`http://localhost:3000/autologin`, {
+        headers: {
+          'accept': 'application/json',
+          Authorization: userId
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.setState({ user: data })
+        })
+    }
   }
-
-
 
   render() {
     return (
-      <div>
-        <NavBar />
+      <React.Fragment>
+        <NavBar user={this.user} />
         <Switch>
           <Route
             path="/home"
             render={() => {
               return (
                 <div>
-                  <Home allUsers={this.state.allUsers} />
+                  <Home user={this.state.user} />
                 </div>
               );
             }}
@@ -89,15 +105,15 @@ class App extends React.Component {
             render={() => {
               return (
                 <div>
-                  <Login />
+                  <Login setUser={this.setUser} user={this.state.user} />
                 </div>
               );
             }}
           />
         </Switch>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

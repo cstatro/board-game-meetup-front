@@ -1,25 +1,45 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom'
 
 export class Login extends Component {
 
+  state = {
+    name: ''
+  }
 
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('userId', data.user.id)
+        this.props.setUser(data.user)
+        this.props.history.push('/home')
+      })
+
+    this.setState({
+      name: ''
+    })
+  }
 
   render() {
     return (
-      <div>
-        <form>
+      < div >
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label for="exampleInputEmail1">Username</label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="Enter Username"
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
+            <label for="formGroupExampleInput2">Username</label>
+            <input type="text" class="form-control" name="name" value={this.state.name} placeholder="Username" onChange={this.handleChange} />
           </div>
           <div className="form-group">
             <label for="exampleInputPassword1">Password</label>
@@ -44,9 +64,9 @@ export class Login extends Component {
             Submit
           </button>
         </form>
-      </div>
+      </div >
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);
