@@ -13,8 +13,7 @@ class GameShow extends Component {
   };
 
   componentDidMount() {
-    const { owners } = this.state;
-    const { name, user } = this.props;
+    const { name } = this.props;
     fetch(`http://localhost:3000/games/${name}`)
       .then(r => r.json())
       .then(data =>
@@ -38,8 +37,7 @@ class GameShow extends Component {
       this.setState({ createOwnedCopy: null, owners, inDataBase: true });
     }
   }
-  handleCollectionAdd = () =>
-    this.setState({ createOwnedCopy: this.state.game_id });
+  handleAddGame = () => this.setState({ createOwnedCopy: this.state.game_id });
 
   handleFirstGameAdd = obj => {
     const config = postConfig(obj);
@@ -58,7 +56,7 @@ class GameShow extends Component {
       max_playtime,
       min_playtime
     } = this.props;
-    const { inDataBase, owners } = this.state;
+    const { inDataBase, owners, game_id } = this.state;
     const newGame = {
       name,
       image: image_url,
@@ -81,6 +79,7 @@ class GameShow extends Component {
               handleAddGame={this.handleAddGame}
               owners={owners}
               user={user}
+              game_id={game_id}
             />
           ) : (
             <FirstAddButton
