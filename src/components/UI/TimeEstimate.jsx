@@ -10,7 +10,7 @@ const TimeEstimate = props => {
         id="exampleFormControlInput1"
         placeholder="120 minutes"
         readOnly
-        value={selectedGame ? "120 minutes" : "Please Select Game"}
+        value={selectedGame ? selectedGame.min_playtime : "Please Select Game"}
       />
     </div>
   );
