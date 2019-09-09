@@ -1,16 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 export class NavBar extends Component {
+
+  state = {
+    name: ''
+  }
+
+  handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem('userId')
+    this.props.setUser(null)
+    this.props.history.push('/login')
+    this.setState({
+      name: ''
+    })
+  }
+
   render() {
+    console.log(this.props)
+    console.log(this.props.user)
+    // console.log(!this.props.user.user)
     return (
       <div>
-        {this.props.user != null ?
+        {!this.props.user ?
           (<div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-              <a className="navbar-brand" href="#">
+              <Link className="navbar-brand" to="#">
                 Navbar
-          </a>
+          </Link>
+              {console.log('logged out')}
               <button
                 className="navbar-toggler"
                 type="button"
@@ -69,6 +88,11 @@ export class NavBar extends Component {
                       Games
                 </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="#" onClick={this.handleLogout}>
+                      Logout
+                </Link>
+                  </li>
                 </ul>
               </div>
             </nav>
@@ -79,4 +103,4 @@ export class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
