@@ -10,7 +10,7 @@ import { MeetupForm } from "./container/MeetupForm";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends React.Component {
-  state = { allGames: [], allUsers: [], user: null };
+  state = { allGames: [], user: null };
 
   setUser = userLogin => {
     this.setState({ user: userLogin })
@@ -22,10 +22,6 @@ class App extends React.Component {
     )
       .then(res => res.json())
       .then(data => this.setState({ allGames: data.games }));
-
-    fetch(`http://localhost:3000/users`)
-      .then(res => res.json())
-      .then(data => this.setState({ allUsers: data }));
 
     const userId = localStorage.getItem('userId')
     if (userId) {

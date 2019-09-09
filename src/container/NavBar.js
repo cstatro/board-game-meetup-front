@@ -18,9 +18,6 @@ export class NavBar extends Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.props.user)
-    // console.log(!this.props.user.user)
     return (
       <div>
         {!this.props.user ?
