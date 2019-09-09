@@ -13,7 +13,6 @@ export class Home extends Component {
     }
 
     render() {
-        console.log(this.state.userGames)
         return (
             <div className="user-card">
                 <h1>Welcome back {this.props.user.name}</h1>
