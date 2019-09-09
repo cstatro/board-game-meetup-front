@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import UserCard from '../components/UserCard'
 
 export class Home extends Component {
 
@@ -21,15 +20,9 @@ export class Home extends Component {
                 {this.state.userGames.map(game =>
                     <div className="owned-games">
                         <p>Game Name: {game.name}</p>
-                        <p>
-                            <img src={game.image} alt={game.name} />{" "}
-                        </p>
-                        <p>
-                            Players: {game.min_players} - {game.max_players}
-                        </p>
-                        <p>
-                            Playtime: {game.min_playtime} - {game.max_playtime} minutes
-                        </p>
+                        <p><img src={game.image} alt={game.name} />{" "}</p>
+                        <p>Players: {game.min_players} - {game.max_players}</p>
+                        <p>Playtime: {game.min_playtime} - {game.max_playtime} minutes</p>
                     </div>
                 )}
             </div>

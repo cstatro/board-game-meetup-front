@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 export class Login extends Component {
 
@@ -23,6 +23,7 @@ export class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         localStorage.setItem('userId', data.user.id)
         this.props.setUser(data.user)
         this.props.history.push('/home')
@@ -35,36 +36,17 @@ export class Login extends Component {
 
   render() {
     return (
-      < div >
+      <div>
+        <samp>Have an account already? Login</samp>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label for="formGroupExampleInput2">Username</label>
             <input type="text" class="form-control" name="name" value={this.state.name} placeholder="Username" onChange={this.handleChange} />
           </div>
-          <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Password"
-            />
-          </div>
-          <div className="form-group form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" for="exampleCheck1">
-              Save Information
-            </label>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
-      </div >
+        <Link className="navbar-brand" to="/signup">Create Account Here</Link>
+      </div>
     );
   }
 }
