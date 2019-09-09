@@ -3,6 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { userFind } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
+import PlayerCount from "../components/UI/PlayerCount";
+const R = require("ramda");
 
 export class MeetupForm extends Component {
   state = { date: null, games: [], selectedGame: null };
@@ -10,6 +12,14 @@ export class MeetupForm extends Component {
   handleDateChange = date => {
     this.setState({ date });
   };
+  handleGameChange = id => {
+    if (id) {
+      const { games } = this.state;
+      const selectedGame = games.find(g => g.id === parseInt(id));
+      this.setState({ selectedGame });
+    }
+  };
+
   componentDidMount() {
     const { user } = this.props;
     fetch(userFind(user.id))
@@ -18,7 +28,8 @@ export class MeetupForm extends Component {
   }
 
   render() {
-    const { games } = this.state;
+    const { games, selectedGame } = this.state;
+
     return (
       <div>
         <samp>New Meetup</samp>
@@ -31,7 +42,7 @@ export class MeetupForm extends Component {
             dateFormat="MMMM d, yyyy h:mm aa"
           />
 
-          <SelectGame games={games} />
+          <SelectGame handleGameChange={this.handleGameChange} games={games} />
 
           <div className="form-group">
             <label for="exampleFormControlInput1">Estimated Game Length</label>
@@ -43,21 +54,7 @@ export class MeetupForm extends Component {
             />
           </div>
 
-          <div className="form-group">
-            <label for="exampleFormControlSelect1">Players Count</label>
-            <select className="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          {selectedGame ? <PlayerCount selectedGame={selectedGame} /> : null}
 
           <div className="form-group">
             <label for="exampleFormControlTextarea1">Notes</label>
