@@ -6,15 +6,11 @@ import Home from "./container/Home";
 import Meetups from "./container/Meetups";
 import Login from "./container/Login";
 import GameShow from "./container/GameShow";
-<<<<<<< HEAD
-import { Route, Switch } from "react-router-dom";
 import { MeetupForm } from "./container/MeetupForm";
-=======
-import { Route, Switch, Link, withRouter } from "react-router-dom";
->>>>>>> login
+import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends React.Component {
-  state = { allGames: [], allUsers: [], user: { name: "colin", id: 1 } };
+  state = { allGames: [], allUsers: [], user: null };
 
   setUser = userLogin => {
     this.setState({ user: userLogin })
@@ -29,9 +25,6 @@ class App extends React.Component {
 
     fetch(`http://localhost:3000/users`)
       .then(res => res.json())
-<<<<<<< HEAD
-      .then(allUsers => this.setState({ allUsers }));
-=======
       .then(data => this.setState({ allUsers: data }));
 
     const userId = localStorage.getItem('userId')
@@ -47,14 +40,13 @@ class App extends React.Component {
           this.setState({ user: data })
         })
     }
->>>>>>> login
   }
 
   render() {
     const { user } = this.state;
     return (
       <React.Fragment>
-        <NavBar user={this.user} />
+        <NavBar user={this.state.user} setUser={this.setUser} />
         <Switch>
           <Route
             path="/home"

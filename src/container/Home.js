@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import UserCard from '../components/UserCard'
-
 
 export class Home extends Component {
 
     render() {
-        console.log("HOME PROPS", this.props.user.name)
         return (
-            <div>
+            <div className="user-card">
                 <h1>Welcome back {this.props.user.name}</h1>
+                <img src={this.props.user.profile_pic} alt={this.props.user.name} />
+                <p>{this.props.user.bio}</p>
             </div>
-
         )
     }
 }
