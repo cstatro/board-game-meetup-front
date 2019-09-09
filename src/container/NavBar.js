@@ -2,34 +2,30 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
 export class NavBar extends Component {
-
   state = {
-    name: ''
-  }
+    name: ""
+  };
 
-  handleLogout = (e) => {
-    e.preventDefault()
-    localStorage.removeItem('userId')
-    this.props.setUser(null)
-    this.props.history.push('/login')
+  handleLogout = e => {
+    e.preventDefault();
+    localStorage.removeItem("userId");
+    this.props.setUser(null);
+    this.props.history.push("/login");
     this.setState({
-      name: ''
-    })
-  }
+      name: ""
+    });
+  };
 
   render() {
-    console.log(this.props)
-    console.log(this.props.user)
-    // console.log(!this.props.user.user)
     return (
       <div>
-        {!this.props.user ?
-          (<div>
+        {!this.props.user ? (
+          <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
               <Link className="navbar-brand" to="#">
                 Navbar
-          </Link>
-              {console.log('logged out')}
+              </Link>
+              {console.log("logged out")}
               <button
                 className="navbar-toggler"
                 type="button"
@@ -45,16 +41,17 @@ export class NavBar extends Component {
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
                     Login / Signup
-                </Link>
+                  </Link>
                 </li>
               </ul>
             </nav>
-          </div>) :
-          (<div>
+          </div>
+        ) : (
+          <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
               <Link className="navbar-brand" to="#">
                 Navbar
-          </Link>
+              </Link>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -71,34 +68,38 @@ export class NavBar extends Component {
                   <li className="nav-item">
                     <Link className="nav-link" to="/home">
                       Home
-                </Link>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/meetup/new">
                       New Meetup
-                </Link>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/meetups">
                       Open Meetups
-                </Link>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/games">
                       Games
-                </Link>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#" onClick={this.handleLogout}>
+                    <Link
+                      className="nav-link"
+                      to="#"
+                      onClick={this.handleLogout}
+                    >
                       Logout
-                </Link>
+                    </Link>
                   </li>
                 </ul>
               </div>
             </nav>
-          </div>)}
+          </div>
+        )}
       </div>
-
     );
   }
 }
