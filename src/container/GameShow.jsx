@@ -5,7 +5,7 @@ import { postConfig } from "../api/config";
 import { postUserGame, GAMES } from "../api/postCalls";
 
 class GameShow extends Component {
-  state = { owners: [], inDataBase: null, createOwnedCopy: null };
+  state = { owners: [], inDataBase: null, createOwnedCopy: null, owned: false };
 
   componentDidMount() {
     const { name } = this.props;
@@ -15,7 +15,8 @@ class GameShow extends Component {
       .catch(e => this.setState({ inDataBase: false }));
   }
   componentDidUpdate() {
-    const { createOwnedCopy } = this.state;
+    const { createOwnedCopy, owners } = this.state;
+    const { user } = this.props;
     const { id: user_id } = this.props.user;
     if (createOwnedCopy) {
       const obj = { game_id: createOwnedCopy, user_id };
@@ -24,6 +25,9 @@ class GameShow extends Component {
       const owners = [...this.state.owners, this.props.user];
       this.setState({ createOwnedCopy: null, owners, inDataBase: true });
     }
+    owners.includes(user)
+      ? this.setState({ owned: true })
+      : console.log("why do i need this");
   }
 
   handleFirstGameAdd = obj => {
