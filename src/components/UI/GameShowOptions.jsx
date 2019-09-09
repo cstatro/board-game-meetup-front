@@ -10,7 +10,11 @@ const GameShowOptions = props => {
   // TODO implement already owned Ternary to show a remove from my collection button when viewing a game
   return (
     <React.Fragment>
-      {alreadyOwned ? <RemoveFromCollection /> : <AddToCollection />}
+      {alreadyOwned ? (
+        <RemoveFromCollection handleClick={console.log} />
+      ) : (
+        <AddToCollection handleClick={console.log} />
+      )}
       <button className="btn btn-lg btn-dark">Some People Own this Game</button>
     </React.Fragment>
   );

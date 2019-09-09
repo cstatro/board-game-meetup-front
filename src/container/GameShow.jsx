@@ -5,14 +5,25 @@ import { postConfig } from "../api/config";
 import { postUserGame, GAMES } from "../api/postCalls";
 
 class GameShow extends Component {
-  state = { owners: [], inDataBase: null, createOwnedCopy: null };
+  state = {
+    game_id: null,
+    owners: [],
+    inDataBase: null,
+    createOwnedCopy: null
+  };
 
   componentDidMount() {
     const { owners } = this.state;
     const { name, user } = this.props;
     fetch(`http://localhost:3000/games/${name}`)
       .then(r => r.json())
-      .then(data => this.setState({ owners: data.users, inDataBase: true }))
+      .then(data =>
+        this.setState({
+          game_id: data.id,
+          owners: data.users,
+          inDataBase: true
+        })
+      )
       .catch(e => this.setState({ inDataBase: false }));
   }
   componentDidUpdate() {
@@ -27,6 +38,8 @@ class GameShow extends Component {
       this.setState({ createOwnedCopy: null, owners, inDataBase: true });
     }
   }
+  handleCollectionAdd = () =>
+    this.setState({ createOwnedCopy: this.state.game_id });
 
   handleFirstGameAdd = obj => {
     const config = postConfig(obj);
