@@ -23,7 +23,6 @@ export class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         localStorage.setItem('userId', data.user.id)
         this.props.setUser(data.user)
         this.props.history.push('/home')

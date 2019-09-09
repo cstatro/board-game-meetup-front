@@ -16,3 +16,10 @@
   background: rgba(240, 240, 213, 0.678);
   cursor: pointer;
 }
+
+.owned-games {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  border: seagreen;
+  border-style: double;
+}
