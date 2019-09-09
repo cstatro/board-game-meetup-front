@@ -5,7 +5,7 @@ export default function UserCard(props) {
   return (
     <div>
       <div className="user-card">
-        <h1>{props.user.name}</h1>
+        {/* <h1>{props.user.name}</h1>
         <img src={props.user.profile_pic} alt={props.user.name} />
         <p>{props.user.bio}</p>
         <p>Games: </p>
@@ -24,7 +24,7 @@ export default function UserCard(props) {
               </p>
             </ol>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
