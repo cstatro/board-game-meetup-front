@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { userFind } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 import PlayerCount from "../components/UI/PlayerCount";
+import TimeEstimate from "../components/UI/TimeEstimate";
 const R = require("ramda");
 
 export class MeetupForm extends Component {
@@ -44,15 +45,7 @@ export class MeetupForm extends Component {
 
           <SelectGame handleGameChange={this.handleGameChange} games={games} />
 
-          <div className="form-group">
-            <label for="exampleFormControlInput1">Estimated Game Length</label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleFormControlInput1"
-              placeholder="120 minutes"
-            />
-          </div>
+          <TimeEstimate selectedGame={selectedGame} />
 
           {selectedGame ? <PlayerCount selectedGame={selectedGame} /> : null}
 
