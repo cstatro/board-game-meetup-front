@@ -41,7 +41,6 @@ class GameShow extends Component {
   handleRemoveCopy = () => {
     const { user } = this.props;
     const owners = this.state.owners.filter(o => o.id != user.id);
-    console.log(owners);
     this.setState({ owners });
   };
 
