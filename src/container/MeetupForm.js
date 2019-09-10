@@ -26,6 +26,7 @@ export class MeetupForm extends Component {
       const { games } = this.state;
       const selectedGame = games.find(g => g.id === parseInt(id));
       this.setState({ selectedGame, game_id: selectedGame.id });
+      this.props.push("/home");
     }
   };
 
@@ -57,7 +58,7 @@ export class MeetupForm extends Component {
     const { games, selectedGame } = this.state;
 
     return (
-      <div>
+      <div className="form-area">
         <samp>New Meetup</samp>
         <form onSubmit={this.handleSubmit}>
           <label for="exampleFormControlInput1">Select a Date</label>

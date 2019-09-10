@@ -36,3 +36,11 @@
   width: 60px;
   height: auto;
 }
+.form-area {
+  margin-top: 40px;
+  width: 80%;
+  margin: auto;
+}
+.react-datepicker__input-container > input {
+  width: 240px;
+}
