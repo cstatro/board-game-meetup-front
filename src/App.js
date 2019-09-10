@@ -56,10 +56,11 @@ class App extends React.Component {
           />
           <Route
             path="/meetup/new"
-            render={() => {
+            render={props => {
+              const { push } = props.history;
               return (
                 <div>
-                  <MeetupForm user={user} />
+                  <MeetupForm push={push} user={user} />
                 </div>
               );
             }}

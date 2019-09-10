@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { userFind, MEETUPS } from "../api/postCalls";
+import { userFind, MEETUPS, createMeetUpMember } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 import PlayerCount from "../components/UI/PlayerCount";
 import TimeEstimate from "../components/UI/TimeEstimate";
 import { addMinutes, format } from "date-fns/esm";
 import { postConfig } from "../api/config";
+import { withRouter } from "react-router-dom";
 const R = require("ramda");
 
 export class MeetupForm extends Component {
@@ -15,7 +16,8 @@ export class MeetupForm extends Component {
     games: [],
     selectedGame: null,
     notes: "",
-    player_count: null
+    player_count: null,
+    newMeetUp: null
   };
 
   handleDateChange = date => {
@@ -29,6 +31,14 @@ export class MeetupForm extends Component {
       this.props.push("/home");
     }
   };
+  componentDidUpdate() {
+    const { id } = this.props.user;
+    const { newMeetUp } = this.state;
+    if (newMeetUp) {
+      const newObj = { meetup_id: newMeetUp, user_id: id, host: true };
+      createMeetUpMember(postConfig(newObj));
+    }
+  }
 
   componentDidMount() {
     const { user } = this.props;
@@ -44,19 +54,26 @@ export class MeetupForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { game_id, date, notes, selectedGame, player_count } = this.state;
+    const parsedCount = parseInt(player_count);
     const start_time = format(date, "MMMM d, yyyy h:mm aa");
     const num = selectedGame.min_playtime;
     const end_time = format(addMinutes(date, num), "MMMM d, yyyy h:mm aa");
-    const gameObj = { game_id, notes, start_time, end_time, player_count };
+    const gameObj = {
+      game_id,
+      notes,
+      start_time,
+      end_time,
+      player_count: parsedCount
+    };
     const config = postConfig(gameObj);
     fetch(MEETUPS, config)
       .then(r => r.json())
-      .then(d => console.log(d));
+      .then(d => this.setState({ newMeetUp: d.id }));
   };
 
   render() {
     const { games, selectedGame } = this.state;
-
+    console.log(this.props);
     return (
       <div className="form-area">
         <samp>New Meetup</samp>
@@ -100,4 +117,4 @@ export class MeetupForm extends Component {
   }
 }
 
-export default MeetupForm;
+export default withRouter(MeetupForm);
