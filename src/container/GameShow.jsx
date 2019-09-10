@@ -26,8 +26,7 @@ class GameShow extends Component {
       .catch(e => this.setState({ inDataBase: false }));
   }
   componentDidUpdate() {
-    const { createOwnedCopy, owners } = this.state;
-    const { user } = this.props;
+    const { createOwnedCopy } = this.state;
     const { id: user_id } = this.props.user;
     if (createOwnedCopy) {
       const obj = { game_id: createOwnedCopy, user_id };

@@ -5,10 +5,11 @@ import { userFind } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 import PlayerCount from "../components/UI/PlayerCount";
 import TimeEstimate from "../components/UI/TimeEstimate";
+import { addMinutes, format } from "date-fns/esm";
 const R = require("ramda");
 
 export class MeetupForm extends Component {
-  state = { date: null, games: [], selectedGame: null };
+  state = { date: null, games: [], selectedGame: null, notes: "" };
 
   handleDateChange = date => {
     this.setState({ date });
@@ -33,7 +34,12 @@ export class MeetupForm extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { game_id, date, notes } = this.state;
+    const { game_id, date, notes, selectedGame } = this.state;
+    const startTime = format(date, "MMMM d, yyyy h:mm aa");
+    const num = selectedGame.min_playtime;
+    const endTime = format(addMinutes(date, num), "MMMM d, yyyy h:mm aa");
+    const gameObj = { game_id, notes, startTime, endTime };
+    console.log(gameObj);
   };
 
   render() {
@@ -42,7 +48,7 @@ export class MeetupForm extends Component {
     return (
       <div>
         <samp>New Meetup</samp>
-        <form onSubmit={console.log}>
+        <form onSubmit={this.handleSubmit}>
           <label for="exampleFormControlInput1">Select a Date</label>
           <DatePicker
             selected={this.state.date}

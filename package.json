@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "date-fns": "^2.1.0",
     "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-datepicker": "^2.9.6",

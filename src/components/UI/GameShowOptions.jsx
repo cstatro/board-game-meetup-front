@@ -18,7 +18,6 @@ const GameShowOptions = props => {
         <RemoveFromCollection
           game_id={game_id}
           user_id={user.id}
-          handleClick={console.log}
           handleRemoveCopy={handleRemoveCopy}
         />
       ) : (
