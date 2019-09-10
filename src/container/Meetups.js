@@ -1,65 +1,74 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import { withRouter } from 'react-router-dom'
 
 export class Meetups extends Component {
 
-    state = { allMeetUps: [] }
+    state = { openMeetUps: [], meetup_id: null }
 
     componentDidMount() {
-        fetch(`http://localhost:3000/meetups`)
+        fetch(`http://localhost:3000/meetups/${this.props.user.id}`)
             .then(res => res.json())
-            .then(data => this.setState({ allMeetUps: data }))
+            .then(data => this.setState({ openMeetUps: data }))
+    }
+
+    handleJoinMeetup = (meetupId) => {
+
+        fetch(`http://localhost:3000/meet_up_members`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                meetup_id: meetupId,
+                user_id: this.props.user.id,
+                host: false
+            })
+        })
+        this.props.history.push('/meetups')
     }
 
     render() {
-
-        const { allMeetUps } = this.state
-
-        // const data = [{
-        //     name: 'Tanner Linsley',
-        //     age: 26,
-        //     friend: {
-        //         name: 'Jason Maurer',
-        //         age: 23,
-        //     }
-        // },
-        // {
-        //     name: 'Tanner Linsley',
-        //     age: 26,
-        //     friend: {
-        //         name: 'Jason Maurer',
-        //         age: 23,
-        //     }
-        // },]
-        console.log(allMeetUps)
+        const { openMeetUps } = this.state
         const columns = [{
-            Header: 'Start',
+            Header: 'Estimated Start Time',
             accessor: 'start_time'
         },
         {
+            Header: 'Estimated End Time',
+            accessor: 'end_time'
+        },
+        {
+            Header: 'Game',
+            accessor: 'game.name'
+        },
+        {
+            Header: 'Player Count',
+            accessor: 'player_count'
+        },
+        {
+            Header: "Open Seat",
+            accessor: "open_seat"
+        },
+        {
+            Header: "Host",
+            accessor: "host"
+        },
+        {
             id: 'id',
-            Header: 'id',
-            accessor: 'id'
+            accessor: meetup => meetup.id,
+            Header: "Join",
+            Cell:
+                (props) => <button onClick={() => this.handleJoinMeetup(props.value)}>Join</button>
         }
-            // , {
-            //     Header: 'Age',
-            //     accessor: 'age',
-            //     Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-            // }, {
-            //     id: 'friendName', // Required because our accessor is not a string
-            //     Header: 'Friend Name',
-            //     accessor: d => d.friend.name // Custom value accessors!
-            // }, {
-            //     Header: props => <span>Friend Age</span>, // Custom header components!
-            //     accessor: 'friend.age'
-            // }
         ]
 
         return (
             <div>
-                {this.state.allMeetUps.length === 0 ? <h1>Loading</h1> : (<ReactTable
-                    data={this.state.allMeetUps}
+                {this.state.openMeetUps.length === 0 ? <h1>No Meet Ups Exist</h1> : (<ReactTable
+                    data={this.state.openMeetUps}
                     columns={columns}
                 />)}
             </div>
@@ -69,40 +78,4 @@ export class Meetups extends Component {
 
 }
 
-
-
-export default Meetups
-
-// render() {
-//     const data = [{
-//       name: 'Tanner Linsley',
-//       age: 26,
-//       friend: {
-//         name: 'Jason Maurer',
-//         age: 23,
-//       }
-//     },{
-//       ...
-//     }]
-
-//     const columns = [{
-//       Header: 'Name',
-//       accessor: 'name' // String-based value accessors!
-//     }, {
-//       Header: 'Age',
-//       accessor: 'age',
-//       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-//     }, {
-//       id: 'friendName', // Required because our accessor is not a string
-//       Header: 'Friend Name',
-//       accessor: d => d.friend.name // Custom value accessors!
-//     }, {
-//       Header: props => <span>Friend Age</span>, // Custom header components!
-//       accessor: 'friend.age'
-//     }]
-
-//     return <ReactTable
-//       data={data}
-//       columns={columns}
-//     />
-//   }
+export default withRouter(Meetups)
