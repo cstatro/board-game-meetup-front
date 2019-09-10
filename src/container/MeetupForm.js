@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { userFind, MEETUPS } from "../api/postCalls";
+import { userFind, MEETUPS, createMeetUpMember } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 import PlayerCount from "../components/UI/PlayerCount";
 import TimeEstimate from "../components/UI/TimeEstimate";
@@ -31,9 +31,11 @@ export class MeetupForm extends Component {
     }
   };
   componentDidUpdate() {
+    const { id } = this.props.user;
     const { newMeetUp } = this.state;
     if (newMeetUp) {
-      this.props.push("/home");
+      const newObj = { meetup_id: newMeetUp, user_id: id, host: true };
+      createMeetUpMember(postConfig(newObj));
     }
   }
 
@@ -65,8 +67,7 @@ export class MeetupForm extends Component {
     const config = postConfig(gameObj);
     fetch(MEETUPS, config)
       .then(r => r.json())
-      .then(d => console.log(d));
-    this.setState({ newMeetUp: true });
+      .then(d => this.setState({ newMeetUp: d.id }));
   };
 
   render() {
