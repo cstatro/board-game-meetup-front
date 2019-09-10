@@ -13,47 +13,28 @@ export class Meetups extends Component {
     }
 
     render() {
-
         const { allMeetUps } = this.state
-
-        // const data = [{
-        //     name: 'Tanner Linsley',
-        //     age: 26,
-        //     friend: {
-        //         name: 'Jason Maurer',
-        //         age: 23,
-        //     }
-        // },
-        // {
-        //     name: 'Tanner Linsley',
-        //     age: 26,
-        //     friend: {
-        //         name: 'Jason Maurer',
-        //         age: 23,
-        //     }
-        // },]
-        console.log(allMeetUps)
         const columns = [{
-            Header: 'Start',
+            Header: 'Date & Start Time',
             accessor: 'start_time'
         },
         {
+            Header: 'Date & End Time',
+            accessor: 'end_time'
+        },
+        {
+            Header: 'Game',
+            accessor: 'game_id'
+        },
+        {
+            Header: 'Player Count',
+            accessor: 'player_count'
+        },
+        {
             id: 'id',
-            Header: 'id',
-            accessor: 'id'
+            Header: "Join",
+            Cell: <button>Join</button>
         }
-            // , {
-            //     Header: 'Age',
-            //     accessor: 'age',
-            //     Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-            // }, {
-            //     id: 'friendName', // Required because our accessor is not a string
-            //     Header: 'Friend Name',
-            //     accessor: d => d.friend.name // Custom value accessors!
-            // }, {
-            //     Header: props => <span>Friend Age</span>, // Custom header components!
-            //     accessor: 'friend.age'
-            // }
         ]
 
         return (
@@ -69,40 +50,4 @@ export class Meetups extends Component {
 
 }
 
-
-
 export default Meetups
-
-// render() {
-//     const data = [{
-//       name: 'Tanner Linsley',
-//       age: 26,
-//       friend: {
-//         name: 'Jason Maurer',
-//         age: 23,
-//       }
-//     },{
-//       ...
-//     }]
-
-//     const columns = [{
-//       Header: 'Name',
-//       accessor: 'name' // String-based value accessors!
-//     }, {
-//       Header: 'Age',
-//       accessor: 'age',
-//       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-//     }, {
-//       id: 'friendName', // Required because our accessor is not a string
-//       Header: 'Friend Name',
-//       accessor: d => d.friend.name // Custom value accessors!
-//     }, {
-//       Header: props => <span>Friend Age</span>, // Custom header components!
-//       accessor: 'friend.age'
-//     }]
-
-//     return <ReactTable
-//       data={data}
-//       columns={columns}
-//     />
-//   }
