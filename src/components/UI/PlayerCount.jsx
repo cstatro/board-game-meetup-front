@@ -9,7 +9,9 @@ const PlayerCount = props => {
       name="player_count"
       className="form-control"
       id="exampleFormControlSelect1"
+      onChange={props.handleChange}
     >
+      <option value={null}>Please Select Player Count</option>
       {numArr.map(n => (
         <option key={n} value={n}>
           {n}

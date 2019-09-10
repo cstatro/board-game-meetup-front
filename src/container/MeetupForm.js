@@ -10,7 +10,13 @@ import { postConfig } from "../api/config";
 const R = require("ramda");
 
 export class MeetupForm extends Component {
-  state = { date: null, games: [], selectedGame: null, notes: "" };
+  state = {
+    date: null,
+    games: [],
+    selectedGame: null,
+    notes: "",
+    player_count: null
+  };
 
   handleDateChange = date => {
     this.setState({ date });
@@ -32,14 +38,15 @@ export class MeetupForm extends Component {
 
   handleFormChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.name);
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { game_id, date, notes, selectedGame } = this.state;
+    const { game_id, date, notes, selectedGame, player_count } = this.state;
     const start_time = format(date, "MMMM d, yyyy h:mm aa");
     const num = selectedGame.min_playtime;
     const end_time = format(addMinutes(date, num), "MMMM d, yyyy h:mm aa");
-    const gameObj = { game_id, notes, start_time, end_time };
+    const gameObj = { game_id, notes, start_time, end_time, player_count };
     const config = postConfig(gameObj);
     fetch(MEETUPS, config)
       .then(r => r.json())
@@ -65,7 +72,12 @@ export class MeetupForm extends Component {
 
           <TimeEstimate selectedGame={selectedGame} />
 
-          {selectedGame ? <PlayerCount selectedGame={selectedGame} /> : null}
+          {selectedGame ? (
+            <PlayerCount
+              handleChange={this.handleFormChange}
+              selectedGame={selectedGame}
+            />
+          ) : null}
 
           <div className="form-group">
             <label for="exampleFormControlTextarea1">Notes</label>
