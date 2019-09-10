@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { userFind } from "../api/postCalls";
+import { userFind, MEETUPS } from "../api/postCalls";
 import SelectGame from "../components/UI/SelectGame";
 import PlayerCount from "../components/UI/PlayerCount";
 import TimeEstimate from "../components/UI/TimeEstimate";
 import { addMinutes, format } from "date-fns/esm";
+import { postConfig } from "../api/config";
 const R = require("ramda");
 
 export class MeetupForm extends Component {
@@ -35,11 +36,14 @@ export class MeetupForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { game_id, date, notes, selectedGame } = this.state;
-    const startTime = format(date, "MMMM d, yyyy h:mm aa");
+    const start_time = format(date, "MMMM d, yyyy h:mm aa");
     const num = selectedGame.min_playtime;
-    const endTime = format(addMinutes(date, num), "MMMM d, yyyy h:mm aa");
-    const gameObj = { game_id, notes, startTime, endTime };
-    console.log(gameObj);
+    const end_time = format(addMinutes(date, num), "MMMM d, yyyy h:mm aa");
+    const gameObj = { game_id, notes, start_time, end_time };
+    const config = postConfig(gameObj);
+    fetch(MEETUPS, config)
+      .then(r => r.json())
+      .then(d => console.log(d));
   };
 
   render() {

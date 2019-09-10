@@ -5,6 +5,7 @@ export const GAMES = HOST + "games";
 const USERS = HOST + "users/";
 export const userFind = name => USERS + name;
 const USERGAMES = HOST + "user_games";
+export const MEETUPS = HOST + "meetups";
 
 export const postUserGame = config => fetch(USERGAMES, config);
 
