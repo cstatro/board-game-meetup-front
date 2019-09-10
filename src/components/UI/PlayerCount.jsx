@@ -13,7 +13,7 @@ const PlayerCount = props => {
     >
       <option value={null}>Please Select Player Count</option>
       {numArr.map(n => (
-        <option key={n} value={n}>
+        <option key={n} value={parseInt(n)}>
           {n}
         </option>
       ))}
