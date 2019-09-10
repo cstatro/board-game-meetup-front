@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { deleteUserGame } from "../../api/postCalls";
 const RemoveFromCollection = props => {
   const [targetRemoval, removeTarget] = useState(false);
-  const { handleClick, game_id, user_id } = props;
+  const { handleRemoveCopy, game_id, user_id } = props;
   useEffect(() => {
     if (targetRemoval) {
       removeTarget(!targetRemoval);
       deleteUserGame(user_id, game_id);
+      handleRemoveCopy();
     }
   });
   return (

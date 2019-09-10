@@ -17,7 +17,7 @@ export class MeetupForm extends Component {
     if (id) {
       const { games } = this.state;
       const selectedGame = games.find(g => g.id === parseInt(id));
-      this.setState({ selectedGame });
+      this.setState({ selectedGame, game_id: selectedGame.id });
     }
   };
 
@@ -28,13 +28,21 @@ export class MeetupForm extends Component {
       .then(user => this.setState({ games: user.games }));
   }
 
+  handleFormChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { game_id, date, notes } = this.state;
+  };
+
   render() {
     const { games, selectedGame } = this.state;
 
     return (
       <div>
         <samp>New Meetup</samp>
-        <form>
+        <form onSubmit={console.log}>
           <label for="exampleFormControlInput1">Select a Date</label>
           <DatePicker
             selected={this.state.date}
@@ -54,7 +62,9 @@ export class MeetupForm extends Component {
             <textarea
               className="form-control"
               id="exampleFormControlTextarea1"
+              name="notes"
               rows="3"
+              onChange={e => this.handleFormChange(e)}
             ></textarea>
           </div>
 

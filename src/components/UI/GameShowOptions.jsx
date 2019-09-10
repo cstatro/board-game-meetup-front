@@ -1,11 +1,16 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import AddToCollection from "./AddToCollection";
 import RemoveFromCollection from "./RemoveFromCollection";
 
 const GameShowOptions = props => {
-  const { owners, user, handleAddGame, game_id } = props;
-  const alreadyOwned = owners.map(o => o.id).includes(user.id);
-  console.log(alreadyOwned);
+  const { owners, user, handleAddGame, game_id, handleRemoveCopy } = props;
+
+  const [alreadyOwned, setAlreadyOwned] = useState(false);
+
+  useEffect(() => {
+    setAlreadyOwned(owners.map(o => o.id).includes(user.id));
+  });
 
   return (
     <React.Fragment>
@@ -14,6 +19,7 @@ const GameShowOptions = props => {
           game_id={game_id}
           user_id={user.id}
           handleClick={console.log}
+          handleRemoveCopy={handleRemoveCopy}
         />
       ) : (
         <AddToCollection handleClick={handleAddGame} />

@@ -39,6 +39,13 @@ class GameShow extends Component {
   }
   handleAddGame = () => this.setState({ createOwnedCopy: this.state.game_id });
 
+  handleRemoveCopy = () => {
+    const { user } = this.props;
+    const owners = this.state.owners.filter(o => o.id != user.id);
+    console.log(owners);
+    this.setState({ owners });
+  };
+
   handleFirstGameAdd = obj => {
     const config = postConfig(obj);
     fetch(GAMES, config)
@@ -77,6 +84,7 @@ class GameShow extends Component {
           {inDataBase ? (
             <GameShowOptions
               handleAddGame={this.handleAddGame}
+              handleRemoveCopy={this.handleRemoveCopy}
               owners={owners}
               user={user}
               game_id={game_id}
