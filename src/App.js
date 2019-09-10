@@ -42,7 +42,7 @@ class App extends React.Component {
   render() {
     const { user } = this.state;
     return (
-      (<React.Fragment>
+      <React.Fragment>
         <NavBar user={this.state.user} setUser={this.setUser} />
         <Switch >
           <Route path="/home" render={() => {
@@ -57,7 +57,7 @@ class App extends React.Component {
           }} />
           <Route path="/meetups" render={() => {
             return (
-              <div><Meetups /></div>
+              <div><Meetups user={this.state.user} /></div>
             );
           }} />
           <Route path={`/games/:name`} render={props => {
@@ -82,7 +82,7 @@ class App extends React.Component {
             );
           }} />
         </Switch>
-      </React.Fragment>)
+      </React.Fragment>
     );
   }
 }
