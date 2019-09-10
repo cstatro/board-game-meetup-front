@@ -6,3 +6,11 @@ export const postConfig = obj => ({
   },
   body: JSON.stringify(obj)
 });
+
+export const deleteConfig = () => ({
+  method: "DELETE",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json"
+  }
+});

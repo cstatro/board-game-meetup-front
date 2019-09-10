@@ -1,21 +1,32 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import AddToCollection from "./AddToCollection";
 import RemoveFromCollection from "./RemoveFromCollection";
 
 const GameShowOptions = props => {
-  const { owners, user } = props;
-  const alreadyOwned = owners.map(o => o.id).includes(user.id);
-  console.log(alreadyOwned);
+  const { owners, user, handleAddGame, game_id, handleRemoveCopy } = props;
 
-  // TODO implement already owned Ternary to show a remove from my collection button when viewing a game
+  const [alreadyOwned, setAlreadyOwned] = useState(false);
+
+  useEffect(() => {
+    setAlreadyOwned(owners.map(o => o.id).includes(user.id));
+  });
+
   return (
     <React.Fragment>
       {alreadyOwned ? (
-        <RemoveFromCollection handleClick={console.log} />
+        <RemoveFromCollection
+          game_id={game_id}
+          user_id={user.id}
+          handleClick={console.log}
+          handleRemoveCopy={handleRemoveCopy}
+        />
       ) : (
-        <AddToCollection handleClick={console.log} />
+        <AddToCollection handleClick={handleAddGame} />
       )}
-      <button className="btn btn-lg btn-dark">Some People Own this Game</button>
+      <button className="btn btn-lg btn-dark">
+        (Implement Me!) People Own this Game
+      </button>
     </React.Fragment>
   );
 };
