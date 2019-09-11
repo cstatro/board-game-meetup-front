@@ -19,7 +19,7 @@ export class Home extends Component {
         <img src={this.props.user.profile_pic} alt={this.props.user.name} />
         <p>{this.props.user.bio}</p>
         <h1>{this.props.user.name}'s Owned Games</h1>
-        <div class="profile-dashboards">
+        <div className="profile-dashboards">
           <OwnedGames games={this.state.userGames} />
           <HostedMeetUps meetups={meetups} />
         </div>
