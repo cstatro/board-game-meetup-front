@@ -28,7 +28,6 @@ export class MeetupForm extends Component {
       const { games } = this.state;
       const selectedGame = games.find(g => g.id === parseInt(id));
       this.setState({ selectedGame, game_id: selectedGame.id });
-      this.props.push("/home");
     }
   };
   componentDidUpdate() {
@@ -37,6 +36,7 @@ export class MeetupForm extends Component {
     if (newMeetUp) {
       const newObj = { meetup_id: newMeetUp, user_id: id, host: true };
       createMeetUpMember(postConfig(newObj));
+      this.props.push("/home");
     }
   }
 
@@ -73,7 +73,6 @@ export class MeetupForm extends Component {
 
   render() {
     const { games, selectedGame } = this.state;
-    console.log(this.props);
     return (
       <div className="form-area">
         <samp>New Meetup</samp>
