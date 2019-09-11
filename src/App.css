@@ -44,3 +44,12 @@
 .react-datepicker__input-container > input {
   width: 240px;
 }
+.meetUpWrap {
+  width: 45%;
+}
+.profile-dashboards {
+  display: flex;
+}
+.owned-games {
+  display: flex;
+}
