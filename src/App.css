@@ -19,7 +19,7 @@
 
 .owned-games {
   display: grid;
-  grid-template-columns: repeat(3, 16.6%);
+  grid-template-columns: repeat(2, 50%);
 }
 
 .user-games {
@@ -45,11 +45,9 @@
   width: 240px;
 }
 .meetUpWrap {
-  width: 45%;
+  width: 100%;
 }
 .profile-dashboards {
-  display: flex;
-}
-.owned-games {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
 }
