@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import OwnedGames from "../components/ownedGames";
 
 export class Home extends Component {
   state = { userGames: [] };
@@ -15,23 +16,7 @@ export class Home extends Component {
         <h1>Welcome back {this.props.user.name}</h1>
         <img src={this.props.user.profile_pic} alt={this.props.user.name} />
         <p>{this.props.user.bio}</p>
-
-        <div className="owned-games">
-          {this.state.userGames.map((game, index) => (
-            <div key={index} className="user-games">
-              <p>{game.name}</p>
-              <p>
-                <img src={game.image} alt={game.name} />
-              </p>
-              <p>
-                Players: {game.min_players} - {game.max_players}
-              </p>
-              <p>
-                Playtime: {game.min_playtime} - {game.max_playtime} minutes
-              </p>
-            </div>
-          ))}
-        </div>
+        <OwnedGames games={this.state.userGames} />
       </div>
     );
   }
