@@ -11,10 +11,13 @@ import { MeetupForm } from "./container/MeetupForm";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends React.Component {
-  state = { allGames: [], user: null };
+  state = { allGames: [], user: null, reRenderUser: false };
 
   setUser = userLogin => {
     this.setState({ user: userLogin });
+  };
+  triggerUserFetch = () => {
+    this.setState({ reRenderUser: true });
   };
 
   componentDidMount() {
@@ -38,13 +41,20 @@ class App extends React.Component {
         });
     }
   }
+  componentDidUpdate() {
+    if (this.state.reRenderUser) {
+      const { id } = this.state.user;
+      fetch(`http://localhost:3000/users/${id}`)
+        .then(r => r.json())
+        .then(user => this.setState({ user }));
+      this.setState({ reRenderUser: false });
+    }
+  }
   render() {
     const { user } = this.state;
     return (
       <div>
         {user ? (
-
-
           <React.Fragment>
             <NavBar user={this.state.user} setUser={this.setUser} />
             <Switch>
@@ -53,7 +63,10 @@ class App extends React.Component {
                 render={() => {
                   return (
                     <div>
-                      <Home user={this.state.user} />
+                      <Home
+                        triggerUserFetch={this.triggerUserFetch}
+                        user={this.state.user}
+                      />
                     </div>
                   );
                 }}
@@ -69,11 +82,16 @@ class App extends React.Component {
                   );
                 }}
               />
-              <Route path="/meetups" render={() => {
-                return (
-                  <div><Meetups user={this.state.user} /></div>
-                );
-              }} />
+              <Route
+                path="/meetups"
+                render={() => {
+                  return (
+                    <div>
+                      <Meetups user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
               <Route
                 path={`/games/:name`}
                 render={props => {
@@ -116,8 +134,9 @@ class App extends React.Component {
                 }}
               />
             </Switch>
-          </React.Fragment>) :
-          (<React.Fragment>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
             <NavBar user={this.state.user} setUser={this.setUser} />
             <Switch>
               <Route
@@ -141,10 +160,10 @@ class App extends React.Component {
                 }}
               />
             </Switch>
-          </React.Fragment>)
-        }
+          </React.Fragment>
+        )}
       </div>
-    )
+    );
   }
 }
 

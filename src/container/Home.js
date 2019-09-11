@@ -9,6 +9,7 @@ export class Home extends Component {
     fetch(`http://localhost:3000/user_games/${this.props.user.id}`)
       .then(res => res.json())
       .then(data => this.setState({ userGames: data }));
+    this.props.triggerUserFetch();
   }
 
   render() {
