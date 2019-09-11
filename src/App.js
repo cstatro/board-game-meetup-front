@@ -41,79 +41,110 @@ class App extends React.Component {
   render() {
     const { user } = this.state;
     return (
-      <React.Fragment>
-        <NavBar user={this.state.user} setUser={this.setUser} />
-        <Switch>
-          <Route
-            path="/home"
-            render={() => {
-              return (
-                <div>
-                  <Home user={this.state.user} />
-                </div>
-              );
-            }}
-          />
-          <Route
-            path="/meetup/new"
-            render={props => {
-              const { push } = props.history;
-              return (
-                <div>
-                  <MeetupForm push={push} user={user} />
-                </div>
-              );
-            }}
-          />
-          <Route path="/meetups" render={() => {
-            return (
-              <div><Meetups user={this.state.user} /></div>
-            );
-          }} />
-          <Route
-            path={`/games/:name`}
-            render={props => {
-              const { game } = props.history.location;
-              return (
-                <div>
-                  <GameShow user={user} {...game} />
-                </div>
-              );
-            }}
-          />
-          <Route
-            path="/games"
-            render={() => {
-              return (
-                <div>
-                  <Games allGames={this.state.allGames} />
-                </div>
-              );
-            }}
-          />
-          <Route
-            path="/login"
-            render={() => {
-              return (
-                <div>
-                  <Login setUser={this.setUser} user={this.state.user} />
-                </div>
-              );
-            }}
-          />
-          <Route
-            path="/signup"
-            render={() => {
-              return (
-                <div>
-                  <SignUp setUser={this.setUser} user={this.state.user} />
-                </div>
-              );
-            }}
-          />
-        </Switch>
-      </React.Fragment>
-    );
+      <div>
+        {user ? (
+
+
+          <React.Fragment>
+            <NavBar user={this.state.user} setUser={this.setUser} />
+            <Switch>
+              <Route
+                path="/home"
+                render={() => {
+                  return (
+                    <div>
+                      <Home user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
+              <Route
+                path="/meetup/new"
+                render={props => {
+                  const { push } = props.history;
+                  return (
+                    <div>
+                      <MeetupForm push={push} user={user} />
+                    </div>
+                  );
+                }}
+              />
+              <Route path="/meetups" render={() => {
+                return (
+                  <div><Meetups user={this.state.user} /></div>
+                );
+              }} />
+              <Route
+                path={`/games/:name`}
+                render={props => {
+                  const { game } = props.history.location;
+                  return (
+                    <div>
+                      <GameShow user={user} {...game} />
+                    </div>
+                  );
+                }}
+              />
+              <Route
+                path="/games"
+                render={() => {
+                  return (
+                    <div>
+                      <Games allGames={this.state.allGames} />
+                    </div>
+                  );
+                }}
+              />
+              <Route
+                path="/login"
+                render={() => {
+                  return (
+                    <div>
+                      <Login setUser={this.setUser} user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
+              <Route
+                path="/signup"
+                render={() => {
+                  return (
+                    <div>
+                      <SignUp setUser={this.setUser} user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
+            </Switch>
+          </React.Fragment>) :
+          (<React.Fragment>
+            <NavBar user={this.state.user} setUser={this.setUser} />
+            <Switch>
+              <Route
+                path="/login"
+                render={() => {
+                  return (
+                    <div>
+                      <Login setUser={this.setUser} user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
+              <Route
+                path="/signup"
+                render={() => {
+                  return (
+                    <div>
+                      <SignUp setUser={this.setUser} user={this.state.user} />
+                    </div>
+                  );
+                }}
+              />
+            </Switch>
+          </React.Fragment>)
+        }
+      </div>
+    )
   }
 }
 
