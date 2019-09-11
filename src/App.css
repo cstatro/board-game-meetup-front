@@ -3,6 +3,10 @@
   height: auto;
 }
 
+.user-card {
+  text-align: center;
+}
+
 .user-card img {
   width: 180px;
   height: auto;
